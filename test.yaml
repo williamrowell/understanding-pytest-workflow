@@ -1,0 +1,16 @@
+- name: miniwdl whale pod
+  command: miniwdl run -d test-output/ whale_pod.wdl
+  files:
+    - path: test-output/_LAST/out/responses/9/World9.txt
+      md5sum: bddf6987a7dee3e1bdcd071a6cf4cc0c
+    - path:  test-output/_LAST/out/responses/9/World9.txt 
+      contains:
+        - World
+- name: cromwell whale pod
+  command: java -jar /Users/rowellw/bin/cromwell-86.jar run -o options.json whale_pod.wdl
+  files:
+    - path: test-output/World9.txt
+      md5sum: bddf6987a7dee3e1bdcd071a6cf4cc0c
+  stdout:
+    contains:
+      - "workflow finished with status 'Succeeded'"
